@@ -39,6 +39,22 @@ class TestParsers(unittest.TestCase):
             with self.subTest(input=test_input, expected=expected):
                 self.assertEqual(remove_multi_line_comments(test_input), expected)
 
+    def test_parse_package(self):
+        test_cases = {
+            # input: expected
+            "": None,
+            "package a;": "a",
+            "import package.name.Class;\nimport package.name.*;": None,
+            "package a; import package.name.Class;\nimport package.name.*;": "a",
+            "// package a;": None,
+            "// comment\npackage a;": "a",
+            "int a = 0; package a;": None,
+        }
+
+        for test_input, expected in test_cases.items():
+            with self.subTest(input=test_input, expected=expected):
+                self.assertEqual(parse_package(test_input), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

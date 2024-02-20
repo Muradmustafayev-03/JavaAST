@@ -19,3 +19,14 @@ def remove_comments(code: str) -> str:
     code = remove_single_line_comments(code)
     code = remove_multi_line_comments(code)
     return code
+
+
+def parse_package(code: str) -> str or None:
+    code = remove_comments(code)
+    code = remove_empty_lines(code)
+    first_line = code.split('\n')[0]
+    if not first_line.startswith('package'):
+        return None
+    first_line = first_line.split(';')[0]
+    package = first_line.replace('package', '').strip()
+    return package
