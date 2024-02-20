@@ -1,8 +1,3 @@
-import os
-
-from Package import Package
-
-
 class Project:
     def __init__(self, path, name):
         self.name = name
